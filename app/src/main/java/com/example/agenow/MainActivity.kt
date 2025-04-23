@@ -83,11 +83,21 @@ class MainActivity : AppCompatActivity() {
 
         // 각 카드 클릭 이벤트
         cardAge.setOnClickListener {
-            showDetailDialog("당신의 나이는", "${calculateAge()}세", "만으로는 ${calculateKoreanAge()}세입니다", "🎂")
+            showDetailDialog(
+                "당신의 나이는",
+                "${calculateAge()}세",
+                "만으로는 ${calculateKoreanAge()}세입니다",
+                "🎂"
+            )
         }
 
         cardKoreanAge.setOnClickListener {
-            showDetailDialog("당신의 만 나이는", "${calculateKoreanAge()}세", "연 나이로는 ${calculateAge()}세입니다", "🎉")
+            showDetailDialog(
+                "당신의 만 나이는",
+                "${calculateKoreanAge()}세",
+                "연 나이로는 ${calculateAge()}세입니다",
+                "🎉"
+            )
         }
 
         cardMinutes.setOnClickListener {
@@ -151,7 +161,8 @@ class MainActivity : AppCompatActivity() {
         // 생일이 지났는지 체크
         if (currentDate.get(Calendar.MONTH) < selectedDate!!.get(Calendar.MONTH) ||
             (currentDate.get(Calendar.MONTH) == selectedDate!!.get(Calendar.MONTH) &&
-                    currentDate.get(Calendar.DAY_OF_MONTH) < selectedDate!!.get(Calendar.DAY_OF_MONTH))) {
+                    currentDate.get(Calendar.DAY_OF_MONTH) < selectedDate!!.get(Calendar.DAY_OF_MONTH))
+        ) {
             age--
         }
 
@@ -211,36 +222,14 @@ class MainActivity : AppCompatActivity() {
         val tvDialogTitle = dialog.findViewById<TextView>(R.id.tv_dialog_title)
         val tvDialogValue = dialog.findViewById<TextView>(R.id.tv_dialog_value)
         val tvDialogDescription = dialog.findViewById<TextView>(R.id.tv_dialog_description)
-        val ivDialogEmoji = dialog.findViewById<ImageView>(R.id.iv_dialog_emoji)
+        val tvDialogEmoji = dialog.findViewById<TextView>(R.id.tv_dialog_emoji)
         val btnDialogConfirm = dialog.findViewById<Button>(R.id.btn_dialog_confirm)
 
         // 데이터 설정
         tvDialogTitle.text = title
         tvDialogValue.text = value
         tvDialogDescription.text = description
-
-        // 이모지 텍스트뷰로 설정 (ImageView 대신)
-        val tvEmoji = TextView(this)
-        tvEmoji.text = emoji
-        tvEmoji.textSize = 30f
-
-        // 오류 수정: parent as Int 부분을 제거하고 레이아웃 직접 참조
-        val container = dialog.findViewById<ConstraintLayout>(R.id.dialog_container)
-        container.removeView(ivDialogEmoji)
-        container.addView(tvEmoji)
-
-        // 이모지 TextView 레이아웃 설정
-        val params = ConstraintLayout.LayoutParams(
-            ConstraintLayout.LayoutParams.WRAP_CONTENT,
-            ConstraintLayout.LayoutParams.WRAP_CONTENT
-        )
-        params.topToBottom = R.id.tv_dialog_description
-        params.startToStart = ConstraintLayout.LayoutParams.PARENT_ID
-        params.endToEnd = ConstraintLayout.LayoutParams.PARENT_ID
-        params.topMargin = resources.getDimensionPixelSize(R.dimen.spacing_medium) // 적절한 마진 리소스 필요
-        tvEmoji.layoutParams = params
-        tvEmoji.gravity = Gravity.CENTER
-        tvEmoji.visibility = View.VISIBLE
+        tvDialogEmoji.text = emoji
 
         // 확인 버튼 클릭 이벤트
         btnDialogConfirm.setOnClickListener {
@@ -249,7 +238,7 @@ class MainActivity : AppCompatActivity() {
 
         // 애니메이션 적용
         val slideUp = AnimationUtils.loadAnimation(this, R.anim.slide_up)
-        container.startAnimation(slideUp)
+        dialog.findViewById<ConstraintLayout>(R.id.dialog_container).startAnimation(slideUp)
 
         dialog.show()
     }

@@ -52,12 +52,15 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tv_dialog_value" />
 
-    <!-- 이모지 또는 아이콘 (선택사항) -->
-    <ImageView
-        android:id="@+id/iv_dialog_emoji"
-        android:layout_width="48dp"
-        android:layout_height="48dp"
+    <!-- 이모지 텍스트뷰 (ImageView 대신 사용) -->
+    <TextView
+        android:id="@+id/tv_dialog_emoji"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
+        android:gravity="center"
+        android:text="🎂"
+        android:textSize="40sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tv_dialog_description" />
@@ -75,6 +78,6 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/iv_dialog_emoji" />
+        app:layout_constraintTop_toBottomOf="@+id/tv_dialog_emoji" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
